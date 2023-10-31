@@ -1,7 +1,7 @@
 import pandas as pd
 import lxml
 import flask
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -11,12 +11,13 @@ table = data[0]
 selist =[]
 print (table['Season title'].loc[0])
   
-for i in range(19):
-  selist.append(table['Season title'].loc[i])
+
+selist = table['Season title'].values.tolist()
+
 
 @app.route('/')
 def seList():
-  return selist
+  return render_template('index.html', data = selist)
 
 if __name__ == '__main__':
   app.run(host = '0.0.0.0', debug=True)
